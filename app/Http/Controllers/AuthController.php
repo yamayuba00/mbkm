@@ -31,13 +31,32 @@ class AuthController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
 
-            $redirectUrl = match ($user->role) {
-                1 => route('admin.dashboard'),
-                2 => route('kaprodi.dashboard'),
-                3 => route('lecturer.dashboard'),
-                4 => route('student.dashboard'),
-                default => route('login'),
-            };
+            // $redirectUrl = match ($user->role) {
+            //     1 => route('admin.dashboard'),
+            //     2 => route('kaprodi.dashboard'),
+            //     3 => route('lecturer.dashboard'),
+            //     4 => route('student.dashboard'),
+            //     default => route('login'),
+            // };
+
+            $redirectUrl = '';
+            switch ($user->role) {
+                case 1:
+                    $redirectUrl = route('admin.dashboard');
+                    break;
+                case 2:
+                    $redirectUrl = route('kaprodi.dashboard');
+                    break;
+                case 3:
+                    $redirectUrl = route('lecturer.dashboard');
+                    break;
+                case 4:
+                    $redirectUrl = route('student.dashboard');
+                    break;
+                default:
+                    $redirectUrl = route('login');
+                    break;
+            }
 
             return response()->json([
                 'success' => true,

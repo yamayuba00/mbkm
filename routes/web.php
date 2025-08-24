@@ -25,10 +25,9 @@ use App\Http\Controllers\Students\InformationProgramController as StudentsInform
 Route::middleware(['guest'])->group(function () {
     Route::get('/', fn() => redirect()->route('login'));
     Route::get('/login', [AuthController::class, 'viewLogin'])->name('login');
-    Route::post('/', [AuthController::class, 'login'])->name('login.post');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 
     Route::get('/forgot-password', [AuthController::class, 'viewForgotPassword'])->name('forgot-password');
-    // Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot-password.post');
     Route::post('/reset-password/verify', [AuthController::class, 'verifyReset'])->name('reset.verify');
     Route::post('/reset-password/update', [AuthController::class, 'updatePassword'])->name('reset.update');
 
